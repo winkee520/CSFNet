@@ -51,7 +51,7 @@
         <div class="row align-items-center">
           <div class="col-md-12">
  
-            <h1><a class="text-light">Cepstral and spectral domains based fusion network <br> for robust speech enhancement </h1><br>   
+            <h1><a class="text-light">DNN-based monaural speech enhancement using alternate analysis windows for phase and magnitude modification </h1><br>   
              <font size=5><span style="color:#FFFFFF"> Anonymous submission to INTERSPEECH 2023 <br></font>
 		 </a>  
             <p>
@@ -69,22 +69,22 @@
       <div class="row" id="result">
         <div class="col-md-12">
         	<h4>Abstract</h4>  
-			Most mainstream speech enhancement solutions using deep neural networks (DNNs) focus on estimating a clean spectrum or waveform, while few studies have explored speech enhancement in the cepstral domain. In this study, we propose a cepstrum and spectrum fusion network to take advantage of both domain features in order to achieve better performance. Specifically, We use a Conformer-embedded SkipConvNet structure that employs homomorphic filtering to estimate the cepstrum of clean speech. We then apply inverse cepstral analysis to transfer the cepstrum to the spectrum for final fusion processing. Experimental results show that incorporating quefrency emphasis can enhance speech harmonics and attenuate reverberation more effectively than traditional spectral domain methods. We assess our model on the DNS challenge test set and naturalistic APOLLO Fearless Steps test sets.<br>
+          In recent decades, considerable research has been devoted to speech enhancement leveraging the short-term Fourier transform (STFT) analysis. As speech processing technology evolves, the significance of phase information in enhancing speech intelligibility becomes more noticeable. Typically, the Hanning window has been widely employed as analysis window in STFT. In this study, we propose the Chebyshev window for phase analysis, and the Hanning window for magnitude analysis. Next, we introduce a novel cepstral domain enhancement approach designed to robustly reinforce the harmonic structure of speech. The performance of our model is evaluated using the DNS challenge test set as well as the naturalistic APOLLO Fearless Steps evaluation set. Experimental results demonstrate that the Chebyshev-based phase solution outperforms the Hanning option for in phase-aware speech enhancement. Furthermore, the incorporation of quefrency emphasis proves effective in enhancing overall speech quality.<br>
 <br>
 <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
   <div style="text-align: center;margin-left: 40px;">
     <img src="systemoverflow.drawio.png" width="640" height="260">
-    <p> <br><br>Fig. 1: The schematic workflow: <br>Input noisy speech waveform is transformed to cepstrum and spectrum domain features, and those features will be fed into SkipConvNet. Only SkipConvNet block and Fusion Net block are DNN modules</p>
+    <p> <br><br>Fig. 1: The schematic workflow: <br>Input noisy speech waveform is separated into cepstrum domain magnitude and spectrum domain phase, and these two features will be processed by different Conformer U-Net</p>
   </div>
   <div style="text-align: center; margin-left: 60px;">
-    <img src="SkipConvNet.drawio.png" width="450" height="280">
-    <p> <br>Fig. 2: Model structure of SkipConvNet with conformer: convolutional encoding and decoding sturecture with Conformer module.</p>
+    <img src="separate.drawio.png" width="450" height="280">
+    <p> <br>Fig. 2: Using different analysis window for magnitude and phase extraction</p>
   </div>
 </div>
 <br><br>
 
       <h4>Test Datasets</h4>
-      <b>DNS-Challenge non-blind dataset [1]</b>: A synthetic data set contains 'with reverberation' and 'no reverberation' subsets. <br>
+      <b>DNS-Challenge non-blind dataset [1]</b>: A synthetic data set. <br>
       <b>APOLLO Fearless Steps dataset [2]</b>: A naturalistic noisy data set with 8kHz sampling rate from Fearless Steps Challenge: Phase II. <br>
 
       <br><br>
@@ -98,8 +98,8 @@
               <th>Noisy</th>
               <th>Clean</th>
               <th>DTLN [3]</th>
-              <th>Cepstrum Enhance</th>
-              <th>Fusion Net</th>
+              <th>Spec match</th>
+              <th>proposed</th>
           </tr>
       </thead>
       <tbody>
@@ -149,8 +149,8 @@
           <th>Samples</th>
           <th>Noisy</th>
           <th>DTLN [3]</th>
-          <th>Cepstrum Enhance</th>
-          <th>Fusion Net</th>
+          <th>Spec match</th>
+          <th>Proposed</th>
       </tr>
   </thead>
   <tbody>
@@ -187,13 +187,6 @@
     </tr>
 </tbody>
 </table>
-<h4> Spectrogram Samples </h4>
-    <hr class="hr_line">
-    <h5>DNS-Challenge non-blind dataset</h5>
-    <img src="test.png" class="container">
-    <hr class="hr_line">
-    <h5>APOLLO Fearless Steps dataset</h5>
-    <img src="apollo_spectro.png" class="container">
 <hr class="hr_line">
 <h4> References </h4>
 [1] Reddy, Chandan K. A. et al. “The INTERSPEECH 2020 Deep Noise Suppression Challenge: Datasets, Subjective Testing Framework, and Challenge Results.” Interspeech (2020). <br>
